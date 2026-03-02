@@ -1,0 +1,98 @@
+VERSION ""
+
+NS_ :
+
+BS_:
+
+BU_: HVC INV VCU
+
+BO_ 2147483808 INV_Temps_1: 8 INV
+ SG_ INV_Module_A_Temp : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Module_B_Temp : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Module_C_Temp : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Gate_Driver_Temp : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+
+BO_ 2147483809 INV_Temps_2: 8 INV
+ SG_ INV_Control_Board_Temp : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_RTD_1_Temp : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_RTD_2_Temp : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Stall_Burst_Temp : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+
+BO_ 2147483810 INV_Temps_3: 8 INV
+ SG_ INV_Coolant_Temp : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Hot_Spot_Temp : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Motor_Temp : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Torque_Shudder : 48|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+
+BO_ 2147483813 INV_Motor_Position_Info: 8 INV
+ SG_ INV_Motor_Angle : 0|16@1- (0.1,0.0) [-360.0|360.0] "deg" Vector__XXX
+ SG_ INV_Motor_Speed : 16|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+ SG_ INV_Electrical_Freq : 32|16@1- (0.1,0.0) [-30000.0|30000.0] "Hz" Vector__XXX
+ SG_ INV_Delta_Resolver : 48|16@1- (0.1,0.0) [-360.0|360.0] "deg" Vector__XXX
+
+BO_ 2147483814 INV_Current_Info: 8 INV
+ SG_ INV_Phase_A_Current : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Phase_B_Current : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Phase_C_Current : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_DC_Bus_Current : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+
+BO_ 2147483815 INV_Voltage_Info: 8 INV
+ SG_ INV_DC_Bus_Voltage : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_Output_Voltage : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_VAB_Vd_Voltage : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_VBC_Vq_Voltage : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 2147483816 INV_Flux_Info: 8 INV
+ SG_ INV_Flux_Command : 0|16@1- (0.001,0.0) [-32.0|32.0] "Webers" Vector__XXX
+ SG_ INV_Flux_Feedback : 16|16@1- (0.001,0.0) [-32.0|32.0] "Webers" Vector__XXX
+ SG_ INV_Id_Feedback : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Iq_Feedback : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+
+BO_ 2147483817 INV_Internal_Voltages: 8 INV
+ SG_ INV_1v5_Voltage : 0|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
+ SG_ INV_2v5_Voltage : 16|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
+ SG_ INV_5V_Voltage : 32|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
+ SG_ INV_12V_Voltage : 48|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
+
+BO_ 2147483819 INV_Fault_Codes: 8 INV
+ SG_ INV_Post_Fault_Lo : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ INV_Post_Fault_Hi : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ INV_Run_Fault_Lo : 32|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ INV_Run_Fault_Hi : 48|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2147483821 INV_Modulation_Flux: 8 INV
+ SG_ INV_Modulation_Idx : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ INV_Flux_Weakening_Output : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Id_Command : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Iq_Command : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+
+BO_ 2147483824 INV_High_Speed_Msg: 8 INV
+ SG_ INV_Torque_Command_Fast : 0|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ INV_Torque_Feedback_Fast : 16|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ INV_Motor_Speed_Fast : 32|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+ SG_ INV_DC_Bus_Voltage_Fast : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 2147483840 VCU_INV_Command: 8 VCU
+ SG_ VCU_INV_Inverter_Enable : 40|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_INV_Torque_Cmd : 0|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ VCU_INV_Direction_Cmd : 32|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_INV_Speed_Cmd : 16|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+ SG_ VCU_INV_Speed_Enable : 42|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_INV_Torque_Limit_Cmd : 48|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ VCU_INV_Discharge_Enable : 41|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2151678448 HVC_Summary: 8 HVC
+ SG_ HVC_SDC_OK : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_IMD_OK : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_BMS_OK : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_Pack_Voltage : 16|2@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ HVC_Pack_Current : 32|2@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ HVC_SOC : 48|2@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
+
+VAL_ 2147483840 VCU_INV_Inverter_Enable 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483840 VCU_INV_Direction_Cmd 0 "REVERSE" 1 "FORWARD" ;
+VAL_ 2147483840 VCU_INV_Speed_Enable 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483840 VCU_INV_Discharge_Enable 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678448 HVC_SDC_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678448 HVC_IMD_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678448 HVC_BMS_OK 0 "FALSE" 1 "TRUE" ;

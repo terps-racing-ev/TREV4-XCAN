@@ -1,0 +1,54 @@
+VERSION ""
+
+NS_ :
+
+BS_:
+
+BU_: MOBO VCU
+
+BO_ 2366636528 VCU_Summary: 8 VCU
+ SG_ VCU_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_State : 8|8@1+ (1.0,0.0) [0.0|4.0] "" Vector__XXX
+ SG_ VCU_Speed : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2367343840 VCU_APPS_Voltages: 8 VCU
+ SG_ VCU_APPS2_Filt_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS2_Raw_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS1_Filt_MV : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS1_Raw_MV : 56|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2367343841 VCU_APPS_Values: 8 VCU
+ SG_ VCU_APPS2_Stale : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_Valid : 3|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_Stale : 4|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_ADC_Err : 5|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_Out_of_Range : 6|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_Valid : 7|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_Value : 8|16@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
+ SG_ VCU_APPS1_Value : 24|16@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
+ SG_ VCU_APPS_Implausible : 40|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS_Valid : 44|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS_Value : 48|16@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
+
+BO_ 2367685104 MOBO_Summary: 8 MOBO
+ SG_ MOBO_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ MOBO_SDC_RAW : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_SDC_POST_IL : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_SDC_POST_LOOP : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+VAL_ 2366636528 VCU_State 0 "VCU_STATE_NOT_READY" 1 "VCU_STATE_PLAYING_RTD_SOUND" 2 "VCU_STATE_DRIVING" 3 "VCU_STATE_BAP_FAULT" 4 "VCU_STATE_HARD_FAULT" ;
+VAL_ 2367343841 VCU_APPS2_Stale 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS2_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS2_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS2_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_Stale 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS_Implausible 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367685104 MOBO_SDC_RAW 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367685104 MOBO_SDC_POST_IL 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367685104 MOBO_SDC_POST_LOOP 0 "FALSE" 1 "TRUE" ;
