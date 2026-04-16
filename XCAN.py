@@ -6,7 +6,7 @@ import json
 import os
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import msal
 import requests
@@ -178,6 +178,28 @@ class Message:
     signals: List[Signal] = field(default_factory=list)
 
 
+@dataclass
+class SpreadsheetValidationError(Exception):
+    phase: str
+    table: str
+    key: Optional[str]
+    column: Optional[str]
+    value: Any
+    detail: str
+
+    def __str__(self) -> str:
+        parts = [self.phase]
+        if self.table:
+            parts.append(f"table={self.table}")
+        if self.key:
+            parts.append(f"item={self.key}")
+        if self.column:
+            parts.append(f"column={self.column}")
+        parts.append(f"value={_format_value(self.value)}")
+        parts.append(self.detail)
+        return " | ".join(parts)
+
+
 # ─────────────────────────────────────────────
 # Helpers
 # ─────────────────────────────────────────────
@@ -188,23 +210,172 @@ def _normalise(val: Any) -> str:
     return str(val).strip()
 
 
+def _format_value(val: Any) -> str:
+    if val is None:
+        return "<none>"
+    if val == "":
+        return "<blank>"
+    return repr(val)
+
+
+def _ensure_columns_present(
+    row: Dict[str, str], required_columns: List[str], *, table: str, key: Optional[str]
+) -> None:
+    missing = [col for col in required_columns if col not in row]
+    if missing:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=", ".join(missing),
+            value="",
+            detail="missing required column(s) in this table",
+        )
+
+
+def _get_cell(
+    row: Dict[str, str], column: str, *, table: str, key: Optional[str]
+) -> str:
+    if column not in row:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value="",
+            detail="required column is missing",
+        )
+    return row[column]
+
+
+def _require_non_blank_cell(
+    row: Dict[str, str], column: str, *, table: str, key: Optional[str]
+) -> str:
+    val = _get_cell(row, column, table=table, key=key)
+    if val == "":
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=val,
+            detail="required value is blank",
+        )
+    return val
+
+
+def _parse_float_cell(value: str, *, table: str, key: Optional[str], column: str) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError) as exc:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=value,
+            detail="expected a numeric value",
+        ) from exc
+
+
+def _parse_int_cell(value: str, *, table: str, key: Optional[str], column: str) -> int:
+    try:
+        parsed_float = float(value)
+    except (TypeError, ValueError) as exc:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=value,
+            detail="expected an integer value",
+        ) from exc
+
+    if not parsed_float.is_integer():
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=value,
+            detail="expected an integer value",
+        )
+
+    return int(parsed_float)
+
+
 # ─────────────────────────────────────────────
 # Table → domain object parsers
 # ─────────────────────────────────────────────
 def parse_templates(rows: List[dict]) -> Dict[str, TemplateInfo]:
     templates: Dict[str, TemplateInfo] = {}
     for r in rows:
-        name = r["Template Name"]
+        name = r.get("Template Name", "")
         if not name:
             continue
+
+        key = f"Template '{name}'"
+        _ensure_columns_present(
+            r,
+            ["Template Name", "Endianness", "Signedness", "Scale", "Offset", "Min", "Max"],
+            table="Templates",
+            key=key,
+        )
+
+        endianness = _require_non_blank_cell(
+            r, "Endianness", table="Templates", key=key
+        )
+        signedness = _require_non_blank_cell(
+            r, "Signedness", table="Templates", key=key
+        )
+
+        if endianness.lower() not in ("little", "big"):
+            raise SpreadsheetValidationError(
+                phase="Spreadsheet validation",
+                table="Templates",
+                key=key,
+                column="Endianness",
+                value=endianness,
+                detail="expected 'Little' or 'Big'",
+            )
+        if signedness.lower() not in ("signed", "unsigned"):
+            raise SpreadsheetValidationError(
+                phase="Spreadsheet validation",
+                table="Templates",
+                key=key,
+                column="Signedness",
+                value=signedness,
+                detail="expected 'Signed' or 'Unsigned'",
+            )
+
         templates[name] = TemplateInfo(
             name=name,
-            endianness=r["Endianness"],
-            signedness=r["Signedness"],
-            scale=float(r["Scale"]),
-            offset=float(r["Offset"]),
-            min_val=float(r["Min"]),
-            max_val=float(r["Max"]),
+            endianness=endianness,
+            signedness=signedness,
+            scale=_parse_float_cell(
+                _require_non_blank_cell(r, "Scale", table="Templates", key=key),
+                table="Templates",
+                key=key,
+                column="Scale",
+            ),
+            offset=_parse_float_cell(
+                _require_non_blank_cell(r, "Offset", table="Templates", key=key),
+                table="Templates",
+                key=key,
+                column="Offset",
+            ),
+            min_val=_parse_float_cell(
+                _require_non_blank_cell(r, "Min", table="Templates", key=key),
+                table="Templates",
+                key=key,
+                column="Min",
+            ),
+            max_val=_parse_float_cell(
+                _require_non_blank_cell(r, "Max", table="Templates", key=key),
+                table="Templates",
+                key=key,
+                column="Max",
+            ),
             units=r.get("Units", ""),
             enum_str=r.get("Enum (0 indexed, separate by ',')", ""),
         )
@@ -214,10 +385,24 @@ def parse_templates(rows: List[dict]) -> Dict[str, TemplateInfo]:
 def parse_messages(rows: List[dict]) -> Dict[str, MessageInfo]:
     messages: Dict[str, MessageInfo] = {}
     for r in rows:
-        name = r["Message Name"]
+        name = r.get("Message Name", "")
         if not name:
             continue
-        raw_id, ext = parse_can_id(r["CAN ID"])
+
+        key = f"Message '{name}'"
+        _ensure_columns_present(
+            r,
+            ["Message Name", "CAN ID"],
+            table="Messages",
+            key=key,
+        )
+
+        raw_id, ext = parse_can_id(
+            _require_non_blank_cell(r, "CAN ID", table="Messages", key=key),
+            table="Messages",
+            key=key,
+            column="CAN ID",
+        )
         messages[name] = MessageInfo(name=name, can_id_raw=raw_id, is_extended=ext)
     return messages
 
@@ -225,19 +410,75 @@ def parse_messages(rows: List[dict]) -> Dict[str, MessageInfo]:
 def parse_bus_signals(rows: List[dict]) -> List[SignalRow]:
     signals: List[SignalRow] = []
     for r in rows:
-        sig_name = r["Signal Name"]
+        sig_name = r.get("Signal Name", "")
         if not sig_name:
             continue
-        bit_offset_str = r["Bit Offset"]
-        bit_offset = int(float(bit_offset_str)) if bit_offset_str not in ("", "N/A", "-") else 0
+
+        key = f"Signal '{sig_name}'"
+        _ensure_columns_present(
+            r,
+            ["Signal Name", "Message", "Start Byte", "Bit Offset", "Bit Length", "Template"],
+            table="Bus",
+            key=key,
+        )
+
+        bit_offset_str = _get_cell(r, "Bit Offset", table="Bus", key=key)
+        if bit_offset_str in ("", "N/A", "-"):
+            bit_offset = 0
+        else:
+            bit_offset = _parse_int_cell(
+                bit_offset_str, table="Bus", key=key, column="Bit Offset"
+            )
+
+        start_byte = _parse_int_cell(
+            _require_non_blank_cell(r, "Start Byte", table="Bus", key=key),
+            table="Bus",
+            key=key,
+            column="Start Byte",
+        )
+        bit_length = _parse_int_cell(
+            _require_non_blank_cell(r, "Bit Length", table="Bus", key=key),
+            table="Bus",
+            key=key,
+            column="Bit Length",
+        )
+
+        if start_byte < 0:
+            raise SpreadsheetValidationError(
+                phase="Spreadsheet validation",
+                table="Bus",
+                key=key,
+                column="Start Byte",
+                value=start_byte,
+                detail="must be greater than or equal to 0",
+            )
+        if bit_offset < 0:
+            raise SpreadsheetValidationError(
+                phase="Spreadsheet validation",
+                table="Bus",
+                key=key,
+                column="Bit Offset",
+                value=bit_offset,
+                detail="must be greater than or equal to 0",
+            )
+        if bit_length <= 0:
+            raise SpreadsheetValidationError(
+                phase="Spreadsheet validation",
+                table="Bus",
+                key=key,
+                column="Bit Length",
+                value=bit_length,
+                detail="must be greater than 0",
+            )
+
         signals.append(
             SignalRow(
-                message_name=r["Message"],
+                message_name=_require_non_blank_cell(r, "Message", table="Bus", key=key),
                 signal_name=sig_name,
-                start_byte=int(float(r["Start Byte"])),
+                start_byte=start_byte,
                 bit_offset=bit_offset,
-                bit_length=int(float(r["Bit Length"])),
-                template_name=r["Template"],
+                bit_length=bit_length,
+                template_name=_require_non_blank_cell(r, "Template", table="Bus", key=key),
             )
         )
     return signals
@@ -246,17 +487,69 @@ def parse_bus_signals(rows: List[dict]) -> List[SignalRow]:
 # ─────────────────────────────────────────────
 # CAN ID helper
 # ─────────────────────────────────────────────
-def parse_can_id(hex_str: str) -> Tuple[int, bool]:
+def parse_can_id(
+    hex_str: str, *, table: str, key: Optional[str], column: str
+) -> Tuple[int, bool]:
     """
     Parse a hex CAN ID string like '0x000000A0' or '0x0A0'.
     Returns (numeric_id, is_extended).
     8 hex digits → extended (29-bit). Otherwise standard (11-bit).
     """
-    cleaned = hex_str.strip()
+    cleaned = _normalise(hex_str)
+    if not cleaned:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=hex_str,
+            detail="CAN ID is blank",
+        )
+
     if cleaned.lower().startswith("0x"):
         cleaned = cleaned[2:]
+    if not cleaned:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=hex_str,
+            detail="CAN ID is missing hex digits",
+        )
+
+    try:
+        raw_id = int(cleaned, 16)
+    except ValueError as exc:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=hex_str,
+            detail="invalid hex CAN ID (example formats: 0x0A0 or 0x000000A0)",
+        ) from exc
+
     is_extended = len(cleaned) >= 8
-    raw_id = int(cleaned, 16)
+    if is_extended and raw_id > 0x1FFFFFFF:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=hex_str,
+            detail="extended CAN ID exceeds 29-bit range",
+        )
+    if not is_extended and raw_id > 0x7FF:
+        raise SpreadsheetValidationError(
+            phase="Spreadsheet validation",
+            table=table,
+            key=key,
+            column=column,
+            value=hex_str,
+            detail="standard CAN ID exceeds 11-bit range",
+        )
+
     return raw_id, is_extended
 
 
@@ -350,8 +643,68 @@ def build_bus(
                     f"'{sr.template_name}' which is not in the templates table"
                 )
             tmpl = templates[sr.template_name]
-            is_be = tmpl.endianness.lower() == "big"
-            is_signed = tmpl.signedness.lower() == "signed"
+
+            endianness = tmpl.endianness.lower()
+            if endianness not in ("little", "big"):
+                raise SpreadsheetValidationError(
+                    phase="Spreadsheet validation",
+                    table="Templates",
+                    key=f"Template '{sr.template_name}'",
+                    column="Endianness",
+                    value=tmpl.endianness,
+                    detail="expected 'Little' or 'Big'",
+                )
+            signedness = tmpl.signedness.lower()
+            if signedness not in ("signed", "unsigned"):
+                raise SpreadsheetValidationError(
+                    phase="Spreadsheet validation",
+                    table="Templates",
+                    key=f"Template '{sr.template_name}'",
+                    column="Signedness",
+                    value=tmpl.signedness,
+                    detail="expected 'Signed' or 'Unsigned'",
+                )
+
+            if sr.bit_length <= 0:
+                raise SpreadsheetValidationError(
+                    phase="Spreadsheet validation",
+                    table=bus_label,
+                    key=f"Signal '{sr.signal_name}'",
+                    column="Bit Length",
+                    value=sr.bit_length,
+                    detail="must be greater than 0",
+                )
+            if sr.start_byte < 0:
+                raise SpreadsheetValidationError(
+                    phase="Spreadsheet validation",
+                    table=bus_label,
+                    key=f"Signal '{sr.signal_name}'",
+                    column="Start Byte",
+                    value=sr.start_byte,
+                    detail="must be greater than or equal to 0",
+                )
+
+            is_be = endianness == "big"
+            is_signed = signedness == "signed"
+
+            if is_be and sr.bit_offset != 0:
+                raise SpreadsheetValidationError(
+                    phase="Spreadsheet validation",
+                    table=bus_label,
+                    key=f"Signal '{sr.signal_name}'",
+                    column="Bit Offset",
+                    value=sr.bit_offset,
+                    detail="must be 0/N/A for Big-endian signals",
+                )
+            if not is_be and not (0 <= sr.bit_offset <= 7):
+                raise SpreadsheetValidationError(
+                    phase="Spreadsheet validation",
+                    table=bus_label,
+                    key=f"Signal '{sr.signal_name}'",
+                    column="Bit Offset",
+                    value=sr.bit_offset,
+                    detail="must be between 0 and 7 for Little-endian signals",
+                )
 
             start = dbc_start_bit(sr.start_byte, sr.bit_offset, is_be)
 
@@ -359,6 +712,16 @@ def build_bus(
                 phys = physical_bits_be(sr.start_byte, sr.bit_length)
             else:
                 phys = physical_bits_le(sr.start_byte, sr.bit_offset, sr.bit_length)
+
+            if max(phys) >= 64:
+                raise SpreadsheetValidationError(
+                    phase="Spreadsheet validation",
+                    table=bus_label,
+                    key=f"Signal '{sr.signal_name}'",
+                    column="Start Byte/Bit Length",
+                    value=f"start={sr.start_byte}, length={sr.bit_length}",
+                    detail="signal exceeds 8-byte CAN payload",
+                )
 
             sig = Signal(
                 name=sr.signal_name,
@@ -494,5 +857,22 @@ def main():
     print("Done.")
 
 
+def run_cli() -> None:
+    try:
+        main()
+    except SpreadsheetValidationError as exc:
+        print("\nSpreadsheet validation error:")
+        print(f"  {exc}")
+        raise SystemExit(1)
+    except RuntimeError as exc:
+        print("\nError:")
+        print(f"  {exc}")
+        raise SystemExit(1)
+    except Exception as exc:
+        print("\nUnexpected error:")
+        print(f"  {exc}")
+        raise SystemExit(1)
+
+
 if __name__ == "__main__":
-    main()
+    run_cli()

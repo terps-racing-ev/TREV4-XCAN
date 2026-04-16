@@ -4,7 +4,7 @@ NS_ :
 
 BS_:
 
-BU_: MOBO VCU
+BU_: DBF DBL DBR VCU
 
 BO_ 2366636528 VCU_Summary: 8 VCU
  SG_ VCU_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
@@ -12,10 +12,10 @@ BO_ 2366636528 VCU_Summary: 8 VCU
  SG_ VCU_Speed : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
 
 BO_ 2367343840 VCU_APPS_Voltages: 8 VCU
- SG_ VCU_APPS2_Filt_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
- SG_ VCU_APPS2_Raw_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
- SG_ VCU_APPS1_Filt_MV : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
- SG_ VCU_APPS1_Raw_MV : 56|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS2_Filt_MV : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS2_Raw_MV : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS1_Filt_MV : 32|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS1_Raw_MV : 48|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
 
 BO_ 2367343841 VCU_APPS_Values: 8 VCU
  SG_ VCU_APPS2_Stale : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
@@ -32,11 +32,110 @@ BO_ 2367343841 VCU_APPS_Values: 8 VCU
  SG_ VCU_APPS_Valid : 44|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
  SG_ VCU_APPS_Value : 48|16@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
 
-BO_ 2367685104 MOBO_Summary: 8 MOBO
- SG_ MOBO_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
- SG_ MOBO_SDC_RAW : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
- SG_ MOBO_SDC_POST_IL : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
- SG_ MOBO_SDC_POST_LOOP : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+BO_ 2376073216 DBF_Status: 8 DBF
+ SG_ DBF_Status_Timestamp : 0|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
+
+BO_ 2376138752 DBF_WSPD_FL: 8 DBF
+ SG_ DBF_WSPD_FL_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBF_WSPD_FL_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
+ SG_ DBF_WSPD_FL_MPH : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2376142848 DBF_WSPD_FR: 8 DBF
+ SG_ DBF_WSPD_FR_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBF_WSPD_FR_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
+ SG_ DBF_WSPD_FR_MPH : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2376204288 DBF_Shock_FL: 8 DBF
+ SG_ DBF_Shock_FL_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBF_Shock_FL_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Shock_FL_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Shock_FL_MM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2376208384 DBF_Shock_FR: 8 DBF
+ SG_ DBF_Shock_FR_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBF_Shock_FR_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Shock_FR_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Shock_FR_MM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2376269824 DBF_Steering_Angle: 8 DBF
+ SG_ DBF_Steering_Angle_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBF_Steering_Angle_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Steering_Angle_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Steering_Angle_Deg : 40|16@1- (1.0,0.0) [-32768.0|32767.0] "" Vector__XXX
+
+BO_ 2376335360 DBF_Pitot: 8 DBF
+ SG_ DBF_Pitot_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBF_Pitot_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Pitot_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Pitot_MPH : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2377121792 DBL_Status: 8 DBL
+ SG_ DBL_Status_Timestamp : 0|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
+
+BO_ 2377187328 DBL_WSPD_BL: 8 DBL
+ SG_ DBL_WSPD_BL_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBL_WSPD_BL_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
+ SG_ DBL_WSPD_BL_MPH : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2377252864 DBL_Shock_BL: 8 DBL
+ SG_ DBL_Shock_BL_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBL_Shock_BL_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_Shock_BL_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_Shock_BL_MM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2377449472 DBL_CT_Swirl: 8 DBL
+ SG_ DBL_CT_Swirl_Error Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBL_CT_Swirl_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_CT_Swirl_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_CT_Swirl_Deg_C : 40|8@1- (1.0,0.0) [-128.0|127.0] "" Vector__XXX
+
+BO_ 2377453568 DBL_CT_Rad1: 8 DBL
+ SG_ DBL_CT_Rad1_Error Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBL_CT_Rad1_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_CT_Rad1_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_CT_Rad1_Deg_C : 40|8@1- (1.0,0.0) [-128.0|127.0] "" Vector__XXX
+
+BO_ 2377457664 DBL_CT_Rad2: 8 DBL
+ SG_ DBL_CT_Rad2_Error Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBL_CT_Rad2_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_CT_Rad2_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_CT_Rad2_Deg_C : 40|8@1- (1.0,0.0) [-128.0|127.0] "" Vector__XXX
+
+BO_ 2377515008 DBL_Tach_L: 8 DBL
+ SG_ DBL_Tach_L_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBL_Tach_L_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBL_Tach_L_RPM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2378170368 DBR_Status: 8 DBR
+ SG_ DBR_Status_Timestamp : 0|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
+
+BO_ 2378235904 DBR_WSPD_BR: 8 DBR
+ SG_ DBR_WSPD_BR_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBR_WSPD_BR_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
+ SG_ DBR_WSPD_BR_MPH : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2378301440 DBR_Shock_BR: 8 DBR
+ SG_ DBR_Shock_BR_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBR_Shock_BR_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBR_Shock_BR_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBR_Shock_BR_MM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2378498048 DBR_CT_Motor: 8 DBR
+ SG_ DBR_CT_Motor_Error Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBR_CT_Motor_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBR_CT_Motor_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBR_CT_Motor_Deg_C : 40|8@1- (1.0,0.0) [-128.0|127.0] "" Vector__XXX
+
+BO_ 2378502144 DBR_CT_Inv: 8 DBR
+ SG_ DBR_CT_Inv_Error Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBR_CT_Inv_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBR_CT_Inv_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBR_CT_Inv_Deg_C : 40|8@1- (1.0,0.0) [-128.0|127.0] "" Vector__XXX
+
+BO_ 2378563584 DBR_Tach_R: 8 DBR
+ SG_ DBR_Tach_R_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
+ SG_ DBR_Tach_R_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBR_Tach_R_RPM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
 
 VAL_ 2366636528 VCU_State 0 "VCU_STATE_NOT_READY" 1 "VCU_STATE_PLAYING_RTD_SOUND" 2 "VCU_STATE_DRIVING" 3 "VCU_STATE_BAP_FAULT" 4 "VCU_STATE_HARD_FAULT" ;
 VAL_ 2367343841 VCU_APPS2_Stale 0 "FALSE" 1 "TRUE" ;
@@ -49,6 +148,3 @@ VAL_ 2367343841 VCU_APPS1_Out_of_Range 0 "FALSE" 1 "TRUE" ;
 VAL_ 2367343841 VCU_APPS1_Valid 0 "FALSE" 1 "TRUE" ;
 VAL_ 2367343841 VCU_APPS_Implausible 0 "FALSE" 1 "TRUE" ;
 VAL_ 2367343841 VCU_APPS_Valid 0 "FALSE" 1 "TRUE" ;
-VAL_ 2367685104 MOBO_SDC_RAW 0 "FALSE" 1 "TRUE" ;
-VAL_ 2367685104 MOBO_SDC_POST_IL 0 "FALSE" 1 "TRUE" ;
-VAL_ 2367685104 MOBO_SDC_POST_LOOP 0 "FALSE" 1 "TRUE" ;
