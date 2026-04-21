@@ -10,12 +10,23 @@ BO_ 2366636528 VCU_Summary: 8 VCU
  SG_ VCU_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
  SG_ VCU_State : 8|8@1+ (1.0,0.0) [0.0|4.0] "" Vector__XXX
  SG_ VCU_Speed : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_RTD_Active : 32|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Buzzer_Active : 33|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2366638942 VCU_BSE: 8 VCU
+ SG_ VCU_BSE_PSI : 8|16@1+ (0.1,0.0) [0.0|10000.0] "PSI" Vector__XXX
+ SG_ VCU_BSE_Filt_mV : 24|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ VCU_BSE_Raw_mV : 40|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ VCU_BSE_Stale : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_BSE_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_BSE_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_BSE_Valid : 3|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
 
 BO_ 2367343840 VCU_APPS_Voltages: 8 VCU
- SG_ VCU_APPS2_Filt_MV : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
- SG_ VCU_APPS2_Raw_MV : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
- SG_ VCU_APPS1_Filt_MV : 32|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
- SG_ VCU_APPS1_Raw_MV : 48|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_APPS2_Filt_mV : 0|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ VCU_APPS2_Raw_mV : 16|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ VCU_APPS1_Filt_mV : 32|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ VCU_APPS1_Raw_mV : 48|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
 
 BO_ 2367343841 VCU_APPS_Values: 8 VCU
  SG_ VCU_APPS2_Stale : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
@@ -26,11 +37,11 @@ BO_ 2367343841 VCU_APPS_Values: 8 VCU
  SG_ VCU_APPS1_ADC_Err : 5|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
  SG_ VCU_APPS1_Out_of_Range : 6|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
  SG_ VCU_APPS1_Valid : 7|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
- SG_ VCU_APPS2_Value : 8|16@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
- SG_ VCU_APPS1_Value : 24|16@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
+ SG_ VCU_APPS2_Value : 8|16@1+ (0.1,0.0) [0.0|100.0] "%" Vector__XXX
+ SG_ VCU_APPS1_Value : 24|16@1+ (0.1,0.0) [0.0|100.0] "%" Vector__XXX
  SG_ VCU_APPS_Implausible : 40|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
  SG_ VCU_APPS_Valid : 44|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
- SG_ VCU_APPS_Value : 48|16@1+ (0.1,0.0) [0.0|100.0] "Percent" Vector__XXX
+ SG_ VCU_APPS_Value : 48|16@1+ (0.1,0.0) [0.0|100.0] "%" Vector__XXX
 
 BO_ 2376073216 DBF_Status: 8 DBF
  SG_ DBF_Status_Timestamp : 0|32@1+ (1.0,0.0) [0.0|4294967295.0] "" Vector__XXX
@@ -137,7 +148,13 @@ BO_ 2378563584 DBR_Tach_R: 8 DBR
  SG_ DBR_Tach_R_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
  SG_ DBR_Tach_R_RPM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
 
-VAL_ 2366636528 VCU_State 0 "VCU_STATE_NOT_READY" 1 "VCU_STATE_PLAYING_RTD_SOUND" 2 "VCU_STATE_DRIVING" 3 "VCU_STATE_BAP_FAULT" 4 "VCU_STATE_HARD_FAULT" ;
+VAL_ 2366636528 VCU_State 0 "VCU_STATE_LOADING" 1 "VCU_STATE_NOT_READY" 2 "VCU_STATE_PLAYING_RTD_SOUND" 3 "VCU_STATE_DRIVING" 4 "VCU_STATE_BAP_FAULT" 5 "VCU_STATE_HARD_FAULT" ;
+VAL_ 2366636528 VCU_RTD_Active 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366636528 VCU_Buzzer_Active 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366638942 VCU_BSE_Stale 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366638942 VCU_BSE_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366638942 VCU_BSE_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366638942 VCU_BSE_Valid 0 "FALSE" 1 "TRUE" ;
 VAL_ 2367343841 VCU_APPS2_Stale 0 "FALSE" 1 "TRUE" ;
 VAL_ 2367343841 VCU_APPS2_ADC_Err 0 "FALSE" 1 "TRUE" ;
 VAL_ 2367343841 VCU_APPS2_Out_of_Range 0 "FALSE" 1 "TRUE" ;
