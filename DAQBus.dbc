@@ -9,7 +9,7 @@ BU_: DBF DBL DBR VCU
 BO_ 2366636528 VCU_Summary: 8 VCU
  SG_ VCU_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
  SG_ VCU_State : 8|8@1+ (1.0,0.0) [0.0|4.0] "" Vector__XXX
- SG_ VCU_Speed : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ VCU_Speed : 16|16@1+ (0.01,0.0) [0.0|1000.0] "MPH" Vector__XXX
  SG_ VCU_RTD_Active : 32|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
  SG_ VCU_Buzzer_Active : 33|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
 
@@ -58,8 +58,8 @@ BO_ 2376142848 DBF_WSPD_FR: 8 DBF
 
 BO_ 2376204288 DBF_Shock_FL: 8 DBF
  SG_ DBF_Shock_FL_Error_Flags : 0|8@1+ (1.0,0.0) [0.0|100.0] "" Vector__XXX
- SG_ DBF_Shock_FL_Raw_MV : 8|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
- SG_ DBF_Shock_FL_Filt_MV : 24|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ DBF_Shock_FL_Raw_mV : 8|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ DBF_Shock_FL_Filt_mV : 24|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
  SG_ DBF_Shock_FL_MM : 40|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
 
 BO_ 2376208384 DBF_Shock_FR: 8 DBF

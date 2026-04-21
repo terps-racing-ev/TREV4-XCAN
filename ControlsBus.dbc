@@ -49,10 +49,10 @@ BO_ 168 INV_Flux_Info: 8 INV
  SG_ INV_Iq_Feedback : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
 
 BO_ 169 INV_Internal_Voltages: 8 INV
- SG_ INV_1v5_Voltage : 0|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
- SG_ INV_2v5_Voltage : 16|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
- SG_ INV_5V_Voltage : 32|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
- SG_ INV_12V_Voltage : 48|16@1- (0.01,0.0) [-100.0|100.0] "V" Vector__XXX
+ SG_ INV_1v5_Voltage : 0|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_2v5_Voltage : 16|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_5V_Voltage : 32|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_12V_Voltage : 48|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
 
 BO_ 171 INV_Fault_Codes: 8 INV
  SG_ INV_Post_Fault_Lo : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
@@ -141,29 +141,29 @@ BO_ 2151678449 HVC_BMS_State: 8 HVC
  SG_ HVC_BMS_State : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
 
 BO_ 2151678451 HVC_IO_Current: 8 HVC
- SG_ HVC_Current_High_mA : 32|32@1- (1.0,0.0) [-10000.0|10000.0] "mA" Vector__XXX
- SG_ HVC_Current_Low_mA : 0|32@1- (1.0,0.0) [-10000.0|10000.0] "mA" Vector__XXX
+ SG_ HVC_Pack_Current_Hi : 32|32@1- (0.001,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ HVC_Pack_Current_Lo : 0|32@1- (0.001,0.0) [-1000.0|1000.0] "A" Vector__XXX
 
 BO_ 2151678452 HVC_SOC: 8 HVC
  SG_ HVC_SOC_Delta_As : 32|32@1- (1.0,0.0) [-2147483648.0|2147483647.0] "A*s" Vector__XXX
- SG_ HVC_SOC_Capacity_As : 16|16@1+ (1.0,0.0) [0.0|65535.0] "A*s" Vector__XXX
- SG_ HVC_SOC_Percent : 0|16@1+ (0.01,0.0) [0.0|100.0] "%" Vector__XXX
+ SG_ HVC_SOC_Capacity : 16|16@1+ (1.0,0.0) [0.0|65535.0] "A*s" Vector__XXX
+ SG_ HVC_SOC : 0|16@1+ (0.01,0.0) [0.0|100.0] "%" Vector__XXX
 
 BO_ 2151678453 HVC_ACC_Summary: 8 HVC
- SG_ HVC_Acc_Temp_Max_C : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
- SG_ HVC_Acc_Temp_Min_C : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
- SG_ HVC_Acc_Volt_Max_mV : 16|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
- SG_ HVC_Acc_Volt_Min_mV : 0|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ HVC_Cell_Temp_Max : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ HVC_Cell_Temp_Min : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ HVC_Cell_Volt_Max : 16|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ HVC_Cell_Volt_Min : 0|16@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
 
 BO_ 2151678455 HVC_IO_VSense: 8 HVC
- SG_ HVC_Inv_Voltage_mV : 32|32@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
- SG_ HVC_Batt_Voltage_mV : 0|32@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
+ SG_ HVC_INV_Voltage : 32|32@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ HVC_Pack_Voltage : 0|32@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
 
 BO_ 2152727232 RPI_MOBO_Command: 8 RPI
- SG_ Pump_toggle : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
- SG_ DRS_toggle : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
- SG_ FANS_toggle : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
- SG_ RAD_toggle : 11|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ RPI_Pump_Toggle_Cmd : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ RPI_DRS_Toggle_Cmd : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ RPI_Fans_Toggle_Cmd : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ RPI_Rad_Toggle_Cmd : 11|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
 
 VAL_ 171 INV_Fault_Motor_Overspeed 0 "FALSE" 1 "TRUE" ;
 VAL_ 171 INV_Fault_Overcurrent 0 "FALSE" 1 "TRUE" ;
@@ -216,7 +216,7 @@ VAL_ 2151678449 HVC_Err_BattFloating 0 "FALSE" 1 "TRUE" ;
 VAL_ 2151678449 HVC_Err_ModuleTimeout 0 "FALSE" 1 "TRUE" ;
 VAL_ 2151678449 HVC_Err_RefOverTemp 0 "FALSE" 1 "TRUE" ;
 VAL_ 2151678449 HVC_BMS_State 0 "FALSE" 1 "TRUE" ;
-VAL_ 2152727232 Pump_toggle 0 "FALSE" 1 "TRUE" ;
-VAL_ 2152727232 DRS_toggle 0 "FALSE" 1 "TRUE" ;
-VAL_ 2152727232 FANS_toggle 0 "FALSE" 1 "TRUE" ;
-VAL_ 2152727232 RAD_toggle 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_Pump_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_DRS_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_Fans_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_Rad_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
