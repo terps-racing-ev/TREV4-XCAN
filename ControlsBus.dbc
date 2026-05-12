@@ -4,7 +4,7 @@ NS_ :
 
 BS_:
 
-BU_: HVC INV MOBO RPI VCU
+BU_: HVC INV MOBO RPI SET VCU
 
 BO_ 160 INV_Temps_1: 8 INV
  SG_ INV_Module_A_Temp : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
@@ -105,6 +105,12 @@ BO_ 192 VCU_INV_Command: 8 VCU
  SG_ VCU_INV_Discharge_Enable : 41|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
  SG_ VCU_INV_Torque_Limit_Cmd : 48|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
 
+BO_ 2147483855 SET_VCU_Config: 8 SET
+ SG_ SET_VCU_Select M : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ SET_VCU_Max_Torque m0 : 8|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ SET_VCU_Motor_Direction m1 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Regen_Enabled m2 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
 BO_ 2147483867 HVC_VREF_Debug: 8 HVC
  SG_ HVC_VREF_mV : 16|32@1+ (1.0,0.0) [0.0|10000.0] "mV" Vector__XXX
  SG_ HVC_VREFINT_ADC : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
@@ -195,6 +201,9 @@ VAL_ 192 VCU_INV_Direction_Cmd 0 "REVERSE" 1 "FORWARD" ;
 VAL_ 192 VCU_INV_Inverter_Enable 0 "FALSE" 1 "TRUE" ;
 VAL_ 192 VCU_INV_Speed_Enable 0 "FALSE" 1 "TRUE" ;
 VAL_ 192 VCU_INV_Discharge_Enable 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Select 0 "MAX_TORQUE" 1 "MOTOR_DIRECTION" 2 "REGEN_ENABLED" ;
+VAL_ 2147483855 SET_VCU_Motor_Direction 0 "REVERSE" 1 "FORWARD" ;
+VAL_ 2147483855 SET_VCU_Regen_Enabled 0 "FALSE" 1 "TRUE" ;
 VAL_ 2148532928 VCU_Pump_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
 VAL_ 2148532928 VCU_DRS_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
 VAL_ 2148532928 VCU_Fans_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;

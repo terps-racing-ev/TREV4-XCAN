@@ -150,6 +150,9 @@ class SignalRow:
     bit_offset: int
     bit_length: int
     template_name: str
+    is_mux_selector: bool = False
+    mux_value: Optional[int] = None
+    is_mux_common: bool = False
 
 
 @dataclass
@@ -165,6 +168,8 @@ class Signal:
     max_val: float
     units: str
     enum_pairs: List[Tuple[int, str]]   # [(0,"REVERSE"),(1,"FORWARD")]
+    is_mux_selector: bool = False
+    mux_value: Optional[int] = None
     # for overlap detection
     physical_bits: set = field(default_factory=set)
 
@@ -417,7 +422,15 @@ def parse_bus_signals(rows: List[dict]) -> List[SignalRow]:
         key = f"Signal '{sig_name}'"
         _ensure_columns_present(
             r,
-            ["Signal Name", "Message", "Start Byte", "Bit Offset", "Bit Length", "Template"],
+            [
+                "Signal Name",
+                "Message",
+                "Start Byte",
+                "Bit Offset",
+                "Bit Length",
+                "Template",
+                "Mux",
+            ],
             table="Bus",
             key=key,
         )
@@ -442,6 +455,29 @@ def parse_bus_signals(rows: List[dict]) -> List[SignalRow]:
             key=key,
             column="Bit Length",
         )
+
+        mux_raw = _get_cell(r, "Mux", table="Bus", key=key)
+        is_mux_selector = False
+        is_mux_common = False
+        mux_value: Optional[int] = None
+        if mux_raw != "":
+            if mux_raw.lower() == "mux":
+                is_mux_selector = True
+            elif mux_raw.lower() == "common":
+                is_mux_common = True
+            else:
+                mux_value = _parse_int_cell(
+                    mux_raw, table="Bus", key=key, column="Mux"
+                )
+                if mux_value < 0:
+                    raise SpreadsheetValidationError(
+                        phase="Spreadsheet validation",
+                        table="Bus",
+                        key=key,
+                        column="Mux",
+                        value=mux_raw,
+                        detail="must be a non-negative integer, 'Mux', or 'Common'",
+                    )
 
         if start_byte < 0:
             raise SpreadsheetValidationError(
@@ -479,6 +515,9 @@ def parse_bus_signals(rows: List[dict]) -> List[SignalRow]:
                 bit_offset=bit_offset,
                 bit_length=bit_length,
                 template_name=_require_non_blank_cell(r, "Template", table="Bus", key=key),
+                is_mux_selector=is_mux_selector,
+                mux_value=mux_value,
+                is_mux_common=is_mux_common,
             )
         )
     return signals
@@ -635,7 +674,65 @@ def build_bus(
             transmitter=transmitter,
         )
 
+        selector_rows = [sr for sr in srows if sr.is_mux_selector]
+        mux_value_rows = [sr for sr in srows if sr.mux_value is not None]
+        common_rows = [sr for sr in srows if sr.is_mux_common]
+
+        if len(selector_rows) > 1:
+            raise RuntimeError(
+                f"[{bus_label}] Message '{msg_name}' has multiple multiplexer selector signals "
+                f"({', '.join(sr.signal_name for sr in selector_rows)})"
+            )
+        if (mux_value_rows or common_rows) and not selector_rows:
+            raise RuntimeError(
+                f"[{bus_label}] Message '{msg_name}' has muxed signals but no selector signal marked 'Mux'"
+            )
+        if selector_rows and not (mux_value_rows or common_rows):
+            raise RuntimeError(
+                f"[{bus_label}] Message '{msg_name}' has a selector signal but no muxed value or common signals"
+            )
+
+        # Process each signal row, expanding "Common" signals
+        processed_srows: List[SignalRow] = []
         for sr in srows:
+            if sr.is_mux_common:
+                # Expand "Common" signal to one per mux selector enum value
+                if not selector_rows:
+                    raise RuntimeError(
+                        f"[{bus_label}] Signal '{sr.signal_name}' marked as 'Common' "
+                        f"but message '{msg_name}' has no mux selector"
+                    )
+                selector_sr = selector_rows[0]
+                sel_tmpl = templates.get(selector_sr.template_name)
+                if not sel_tmpl:
+                    raise RuntimeError(
+                        f"[{bus_label}] Mux selector signal '{selector_sr.signal_name}' "
+                        f"references unknown template '{selector_sr.template_name}'"
+                    )
+                enum_pairs = parse_enum(sel_tmpl.enum_str)
+                if not enum_pairs:
+                    raise RuntimeError(
+                        f"[{bus_label}] Signal '{sr.signal_name}' marked as 'Common', "
+                        f"but mux selector template '{sel_tmpl.name}' has no enum values"
+                    )
+                # Create one signal per enum value
+                for enum_val, enum_name in enum_pairs:
+                    expanded_sr = SignalRow(
+                        message_name=sr.message_name,
+                        signal_name=f"{enum_name}_{sr.signal_name}",
+                        start_byte=sr.start_byte,
+                        bit_offset=sr.bit_offset,
+                        bit_length=sr.bit_length,
+                        template_name=sr.template_name,
+                        is_mux_selector=False,
+                        mux_value=enum_val,
+                        is_mux_common=False,
+                    )
+                    processed_srows.append(expanded_sr)
+            else:
+                processed_srows.append(sr)
+
+        for sr in processed_srows:
             # Look up template
             if sr.template_name not in templates:
                 raise RuntimeError(
@@ -735,6 +832,8 @@ def build_bus(
                 max_val=tmpl.max_val,
                 units=tmpl.units,
                 enum_pairs=parse_enum(tmpl.enum_str),
+                is_mux_selector=sr.is_mux_selector,
+                mux_value=sr.mux_value,
                 physical_bits=phys,
             )
             msg.signals.append(sig)
@@ -742,6 +841,20 @@ def build_bus(
         # Overlap detection
         for i, a in enumerate(msg.signals):
             for b in msg.signals[i + 1 :]:
+                a_always = (not a.is_mux_selector) and (a.mux_value is None)
+                b_always = (not b.is_mux_selector) and (b.mux_value is None)
+
+                check_overlap = False
+                if a_always or b_always:
+                    check_overlap = True
+                elif a.is_mux_selector or b.is_mux_selector:
+                    check_overlap = True
+                elif a.mux_value is not None and b.mux_value is not None:
+                    check_overlap = a.mux_value == b.mux_value
+
+                if not check_overlap:
+                    continue
+
                 overlap = a.physical_bits & b.physical_bits
                 if overlap:
                     raise RuntimeError(
@@ -778,8 +891,13 @@ def generate_dbc(messages: List[Message], nodes: List[str]) -> str:
         for sig in msg.signals:
             byte_order = 0 if sig.is_big_endian else 1
             sign_char = "-" if sig.is_signed else "+"
+            mux_token = ""
+            if sig.is_mux_selector:
+                mux_token = " M"
+            elif sig.mux_value is not None:
+                mux_token = f" m{sig.mux_value}"
             lines.append(
-                f" SG_ {sig.name} : {sig.dbc_start_bit}|{sig.bit_length}"
+                f" SG_ {sig.name}{mux_token} : {sig.dbc_start_bit}|{sig.bit_length}"
                 f"@{byte_order}{sign_char}"
                 f" ({sig.scale},{sig.offset})"
                 f" [{sig.min_val}|{sig.max_val}]"
