@@ -1,0 +1,598 @@
+VERSION ""
+
+NS_ :
+
+BS_:
+
+BU_: BL DBF DBL DBR FR HVC INV MOBO RPI SET VCU
+
+BO_ 160 INV_Temps_1: 8 INV
+ SG_ INV_Module_A_Temp : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Module_B_Temp : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Module_C_Temp : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Gate_Driver_Temp : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+
+BO_ 161 INV_Temps_2: 8 INV
+ SG_ INV_Control_Board_Temp : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_RTD_1_Temp : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_RTD_2_Temp : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Stall_Burst_Temp : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+
+BO_ 162 INV_Temps_3: 8 INV
+ SG_ INV_Coolant_Temp : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Hot_Spot_Temp : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Motor_Temp : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ INV_Torque_Shudder : 48|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+
+BO_ 165 INV_Motor_Position_Info: 8 INV
+ SG_ INV_Motor_Angle : 0|16@1- (0.1,0.0) [-360.0|360.0] "deg" Vector__XXX
+ SG_ INV_Motor_Speed : 16|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+ SG_ INV_Electrical_Freq : 32|16@1- (0.1,0.0) [-30000.0|30000.0] "Hz" Vector__XXX
+ SG_ INV_Delta_Resolver : 48|16@1- (0.1,0.0) [-360.0|360.0] "deg" Vector__XXX
+
+BO_ 166 INV_Current_Info: 8 INV
+ SG_ INV_Phase_A_Current : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Phase_B_Current : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Phase_C_Current : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_DC_Bus_Current : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+
+BO_ 167 INV_Voltage_Info: 8 INV
+ SG_ INV_DC_Bus_Voltage : 0|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_Output_Voltage : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_VAB_Vd_Voltage : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_VBC_Vq_Voltage : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 168 INV_Flux_Info: 8 INV
+ SG_ INV_Flux_Command : 0|16@1- (0.001,0.0) [-32.0|32.0] "Webers" Vector__XXX
+ SG_ INV_Flux_Feedback : 16|16@1- (0.001,0.0) [-32.0|32.0] "Webers" Vector__XXX
+ SG_ INV_Id_Feedback : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Iq_Feedback : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+
+BO_ 169 INV_Internal_Voltages: 8 INV
+ SG_ INV_1v5_Voltage : 0|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_2v5_Voltage : 16|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_5V_Voltage : 32|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ INV_12V_Voltage : 48|16@1- (0.01,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 171 INV_Fault_Codes: 8 INV
+ SG_ INV_Post_Fault_Lo : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ INV_Post_Fault_Hi : 16|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ INV_Fault_Motor_Overspeed : 32|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Overcurrent : 33|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Overvoltage : 34|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Inverter_Overtemp : 35|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Accel_Input_Shorted : 36|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Accel_Input_Open : 37|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Direction_Cmd : 38|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Response_Timeout : 39|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_HW_Gate : 40|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_HW_Overcurrent : 41|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Undervoltage : 42|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Cmd_Msg_Lost : 43|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Motor_Overtemp : 44|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Brake_Input_Shorted : 48|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Brake_Input_Open : 49|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Module_A_Overtemp : 50|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Module_B_Overtemp : 51|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Module_C_Overtemp : 52|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_PCB_Overtemp : 53|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Board_1_Overtemp : 54|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Board_2_Overtemp : 55|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Board_3_Overtemp : 56|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Curr_Sensor_Fault : 57|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Gate_Overvoltage : 58|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_DC_Bus_Overvoltage : 60|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ INV_Fault_Resolver_Not_Cnctd : 62|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 173 INV_Modulation_Flux: 8 INV
+ SG_ INV_Modulation_Idx : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+ SG_ INV_Flux_Weakening_Output : 16|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Id_Command : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ INV_Iq_Command : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "A" Vector__XXX
+
+BO_ 176 INV_High_Speed_Msg: 8 INV
+ SG_ INV_Torque_Command_Fast : 0|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ INV_Torque_Feedback_Fast : 16|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ INV_Motor_Speed_Fast : 32|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+ SG_ INV_DC_Bus_Voltage_Fast : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 187 BL_BrakeTemp: 8 BL
+ SG_ BL_BrakeTemp_Ch1 : 7|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ BL_BrakeTemp_Ch2 : 23|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ BL_BrakeTemp_Ch3 : 39|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ BL_BrakeTemp_Ch4 : 55|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+
+BO_ 192 VCU_INV_Command: 8 VCU
+ SG_ VCU_INV_Torque_Cmd : 0|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ VCU_INV_Speed_Cmd : 16|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+ SG_ VCU_INV_Direction_Cmd : 32|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_INV_Inverter_Enable : 40|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_INV_Speed_Enable : 42|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_INV_Discharge_Enable : 41|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_INV_Torque_Limit_Cmd : 48|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+
+BO_ 251 FR_BrakeTemp: 8 FR
+ SG_ FR_BrakeTemp_Ch1 : 7|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ FR_BrakeTemp_Ch2 : 23|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ FR_BrakeTemp_Ch3 : 39|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ FR_BrakeTemp_Ch4 : 55|16@0+ (0.1,-100.0) [-1000.0|1000.0] "C" Vector__XXX
+
+BO_ 2147483855 SET_VCU_Config: 8 SET
+ SG_ SET_VCU_Select M : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ SET_VCU_Max_Torque m0 : 8|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ SET_VCU_Motor_Direction m1 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Regen_Enabled m2 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_ECHO_DAQ m3 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Ignore_RTD_Switch m3 : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Ignore_RTD_Brakes m3 : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Use_APPS1_Only m3 : 11|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Use_APPS2_Only m3 : 12|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Ignore_APPS_Errs m3 : 13|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Ignore_BSE_Errs m3 : 14|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Ignore_SDC m3 : 15|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Ignore_Brake_Plausibility m3 : 16|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ SET_VCU_Always_Green m3 : 17|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2147483867 HVC_VREF_Debug: 8 HVC
+ SG_ HVC_VREF_mV : 16|32@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ HVC_VREFINT_ADC : 0|16@1+ (1.0,0.0) [0.0|65535.0] "" Vector__XXX
+
+BO_ 2148532431 VCU_Config: 8 VCU
+ SG_ VCU_Config_Mux M : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_Max_Torque m0 : 8|16@1- (0.1,0.0) [-230.0|230.0] "Nm" Vector__XXX
+ SG_ VCU_Motor_Direction m1 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Regen_Enabled m2 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_ECHO_DAQ m3 : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Ignore_RTD_Switch m3 : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Ignore_RTD_Brakes m3 : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Use_APPS1_Only m3 : 11|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Use_APPS2_Only m3 : 12|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Ignore_APPS_Errs m3 : 13|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Ignore_BSE_Errs m3 : 14|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Ignore_SDC m3 : 15|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Ignore_Brake_Plausibility m3 : 16|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Always_Green m3 : 17|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2148532928 VCU_MOBO_Command: 8 VCU
+ SG_ VCU_Pump_Toggle_Cmd : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_DRS_Toggle_Cmd : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Fans_Toggle_Cmd : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Rad_Toggle_Cmd : 11|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2149581296 MOBO_Summary: 8 MOBO
+ SG_ MOBO_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ MOBO_IMD_OK : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_BMS_OK : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_BSPD_OK : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_SDC_Raw : 11|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_SDC_Post_IL : 12|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_SDC_Post_Loop : 13|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_Pump_State : 16|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_DRS_State : 17|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_Fans_State : 18|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ MOBO_Rad_State : 19|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2151678448 HVC_IO_Summary: 8 HVC
+ SG_ HVC_SDC_OK : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_IMD_OK : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_BMS_OK : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_Ref_Temp : 40|16@1- (0.01,0.0) [-327.68|327.67] "C" Vector__XXX
+
+BO_ 2151678449 HVC_BMS_State: 8 HVC
+ SG_ HVC_Err_BattFloating : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_Err_ModuleTimeout : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_Err_RefOverTemp : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ HVC_BMS_State : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2151678451 HVC_IO_Current: 8 HVC
+ SG_ HVC_Pack_Current_Hi : 32|32@1- (0.001,0.0) [-1000.0|1000.0] "A" Vector__XXX
+ SG_ HVC_Pack_Current_Lo : 0|32@1- (0.001,0.0) [-1000.0|1000.0] "A" Vector__XXX
+
+BO_ 2151678452 HVC_SOC: 8 HVC
+ SG_ HVC_SOC_Delta_As : 32|32@1- (1.0,0.0) [-2147483648.0|2147483647.0] "A*s" Vector__XXX
+ SG_ HVC_SOC_Capacity : 16|16@1+ (1.0,0.0) [0.0|65535.0] "A*s" Vector__XXX
+ SG_ HVC_SOC : 0|16@1+ (0.01,0.0) [0.0|100.0] "%" Vector__XXX
+
+BO_ 2151678453 HVC_ACC_Summary: 8 HVC
+ SG_ HVC_Cell_Temp_Max : 48|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ HVC_Cell_Temp_Min : 32|16@1- (0.1,0.0) [-1000.0|1000.0] "C" Vector__XXX
+ SG_ HVC_Cell_Volt_Max : 16|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ HVC_Cell_Volt_Min : 0|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 2151678455 HVC_IO_VSense: 8 HVC
+ SG_ HVC_INV_Voltage : 32|32@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ HVC_Pack_Voltage : 0|32@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 2152727232 RPI_MOBO_Command: 8 RPI
+ SG_ RPI_Pump_Toggle_Cmd : 8|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ RPI_DRS_Toggle_Cmd : 9|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ RPI_Fans_Toggle_Cmd : 10|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ RPI_Rad_Toggle_Cmd : 11|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2366636528 VCU_Summary: 8 VCU
+ SG_ VCU_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_State : 8|8@1+ (1.0,0.0) [0.0|5.0] "" Vector__XXX
+ SG_ VCU_Speed : 16|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+ SG_ VCU_RTD_Active : 32|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Red_Car : 33|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Buzzer_State : 40|8@1+ (1.0,0.0) [0.0|2.0] "" Vector__XXX
+
+BO_ 2366638942 VCU_BSE: 8 VCU
+ SG_ VCU_BSE_PSI : 8|16@1+ (0.1,0.0) [0.0|10000.0] "PSI" Vector__XXX
+ SG_ VCU_BSE_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ VCU_BSE_Raw_mV : 40|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ VCU_BSE_Stale : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_BSE_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_BSE_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_BSE_Valid : 3|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2366639273 VCU_CAN_Health: 8 VCU
+ SG_ VCU_Health_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_Controls_TX_Errs : 8|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_Controls_RX_Errs : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_DAQ_TX_Errs : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_DAQ_RX_Errs : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_Controls_Passive_Err : 40|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Controls_Bus_Off : 41|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_DAQ_Passive_Err : 42|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_DAQ_Bus_Off : 43|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Controls_TX_Fault_Seen : 44|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Controls_RX_Fault_Seen : 45|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_DAQ_TX_Fault_Seen : 46|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_DAQ_RX_Fault_Seen : 47|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Controls_Status : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_DAQ_Status : 56|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+
+BO_ 2366693037 VCU_Dead_Car: 8 VCU
+ SG_ VCU_Dead_HVC_Msg_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Dead_IMD_OK : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Dead_BMS_OK : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_Dead_SDC_OK : 3|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+
+BO_ 2366697968 VCU_CAN_Health_FIFO: 8 VCU
+ SG_ VCU_FIFO_Heartbeat : 0|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ VCU_FIFO_Mux M : 8|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_STD_VCU_FIFO_Last_Status m0 : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_EXT_VCU_FIFO_Last_Status m1 : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_DAQ_EXT_VCU_FIFO_Last_Status m2 : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_STATUS_VCU_FIFO_Last_Status m3 : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_HIGH_SPEED_VCU_FIFO_Last_Status m4 : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_HVC_SUMMARY_VCU_FIFO_Last_Status m5 : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_SET_VCU_CONFIG_VCU_FIFO_Last_Status m6 : 16|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_STD_VCU_FIFO_Invld_Data_Count m0 : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_EXT_VCU_FIFO_Invld_Data_Count m1 : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_DAQ_EXT_VCU_FIFO_Invld_Data_Count m2 : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_STATUS_VCU_FIFO_Invld_Data_Count m3 : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_HIGH_SPEED_VCU_FIFO_Invld_Data_Count m4 : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_HVC_SUMMARY_VCU_FIFO_Invld_Data_Count m5 : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_SET_VCU_CONFIG_VCU_FIFO_Invld_Data_Count m6 : 24|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_STD_VCU_FIFO_Full_Count m0 : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_EXT_VCU_FIFO_Full_Count m1 : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_DAQ_EXT_VCU_FIFO_Full_Count m2 : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_STATUS_VCU_FIFO_Full_Count m3 : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_HIGH_SPEED_VCU_FIFO_Full_Count m4 : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_HVC_SUMMARY_VCU_FIFO_Full_Count m5 : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_SET_VCU_CONFIG_VCU_FIFO_Full_Count m6 : 32|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_STD_VCU_FIFO_Overflow_Count m0 : 40|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_EXT_VCU_FIFO_Overflow_Count m1 : 40|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_DAQ_EXT_VCU_FIFO_Overflow_Count m2 : 40|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_STATUS_VCU_FIFO_Overflow_Count m3 : 40|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_HIGH_SPEED_VCU_FIFO_Overflow_Count m4 : 40|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_HVC_SUMMARY_VCU_FIFO_Overflow_Count m5 : 40|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_SET_VCU_CONFIG_VCU_FIFO_Overflow_Count m6 : 40|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_STD_VCU_FIFO_Other_Errs_Count m0 : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_CONTROLS_EXT_VCU_FIFO_Other_Errs_Count m1 : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ TX_DAQ_EXT_VCU_FIFO_Other_Errs_Count m2 : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_STATUS_VCU_FIFO_Other_Errs_Count m3 : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_INV_HIGH_SPEED_VCU_FIFO_Other_Errs_Count m4 : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_HVC_SUMMARY_VCU_FIFO_Other_Errs_Count m5 : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+ SG_ RX_SET_VCU_CONFIG_VCU_FIFO_Other_Errs_Count m6 : 48|8@1+ (1.0,0.0) [0.0|255.0] "" Vector__XXX
+
+BO_ 2367343840 VCU_APPS_Voltages: 8 VCU
+ SG_ VCU_APPS2_Filt_mV : 0|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ VCU_APPS2_Raw_mV : 16|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ VCU_APPS1_Filt_mV : 32|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ VCU_APPS1_Raw_mV : 48|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+
+BO_ 2367343841 VCU_APPS_Values: 8 VCU
+ SG_ VCU_APPS2_Stale : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_Valid : 3|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_Stale : 4|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_ADC_Err : 5|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_Out_of_Range : 6|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS1_Valid : 7|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS2_Value : 8|16@1+ (0.1,0.0) [0.0|100.0] "%" Vector__XXX
+ SG_ VCU_APPS1_Value : 24|16@1+ (0.1,0.0) [0.0|100.0] "%" Vector__XXX
+ SG_ VCU_APPS_Implausible : 40|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS_Valid : 44|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ VCU_APPS_Value : 48|16@1+ (0.1,0.0) [0.0|100.0] "%" Vector__XXX
+
+BO_ 2376073216 DBF_Status: 8 DBF
+ SG_ DBF_Status_Timestamp : 0|32@1+ (1.0,0.0) [0.0|4294967295.0] "ms" Vector__XXX
+
+BO_ 2376138752 DBF_WSPD_FL: 8 DBF
+ SG_ DBF_WSPD_FL_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_WSPD_FL_Timeout : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_WSPD_FL_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "us" Vector__XXX
+ SG_ DBF_WSPD_FL_RPM : 40|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+
+BO_ 2376142848 DBF_WSPD_FR: 8 DBF
+ SG_ DBF_WSPD_FR_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_WSPD_FR_Timeout : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_WSPD_FR_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "us" Vector__XXX
+ SG_ DBF_WSPD_FR_RPM : 40|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+
+BO_ 2376204288 DBF_Shock_FL: 8 DBF
+ SG_ DBF_Shock_FL_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Shock_FL_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Shock_FL_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Shock_FL_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Shock_FL_mm : 40|16@1+ (0.1,0.0) [0.0|500.0] "mm" Vector__XXX
+
+BO_ 2376208384 DBF_Shock_FR: 8 DBF
+ SG_ DBF_Shock_FR_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Shock_FR_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Shock_FR_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Shock_FR_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Shock_FR_mm : 40|16@1+ (0.1,0.0) [0.0|500.0] "mm" Vector__XXX
+
+BO_ 2376269824 DBF_Steering_Angle: 8 DBF
+ SG_ DBF_Steering_Angle_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Steering_Angle_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Steering_Angle_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Steering_Angle_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Steering_Angle_Deg : 40|16@1- (0.1,0.0) [-360.0|360.0] "deg" Vector__XXX
+
+BO_ 2376335360 DBF_Pitot: 8 DBF
+ SG_ DBF_Pitot_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Pitot_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBF_Pitot_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Pitot_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBF_Pitot_MPH : 40|16@1+ (0.01,0.0) [0.0|1000.0] "MPH" Vector__XXX
+
+BO_ 2377121792 DBL_Status: 8 DBL
+ SG_ DBL_Status_Timestamp : 0|32@1+ (1.0,0.0) [0.0|4294967295.0] "ms" Vector__XXX
+
+BO_ 2377187328 DBL_WSPD_BL: 8 DBL
+ SG_ DBL_WSPD_BL_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_WSPD_BL_Timeout : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_WSPD_BL_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "us" Vector__XXX
+ SG_ DBL_WSPD_BL_RPM : 40|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+
+BO_ 2377252864 DBL_Shock_BL: 8 DBL
+ SG_ DBL_Shock_BL_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_Shock_BL_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_Shock_BL_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_Shock_BL_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_Shock_BL_mm : 40|16@1+ (0.1,0.0) [0.0|500.0] "mm" Vector__XXX
+
+BO_ 2377449472 DBL_CT_Swirl: 8 DBL
+ SG_ DBL_CT_Swirl_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Swirl_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Swirl_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Swirl_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_CT_Swirl_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_CT_Swirl_Deg_C : 40|8@1- (1.0,0.0) [-40.0|120.0] "C" Vector__XXX
+
+BO_ 2377453568 DBL_CT_Rad1: 8 DBL
+ SG_ DBL_CT_Rad1_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Rad1_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Rad1_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Rad1_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_CT_Rad1_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_CT_Rad1_Deg_C : 40|8@1- (1.0,0.0) [-40.0|120.0] "C" Vector__XXX
+
+BO_ 2377457664 DBL_CT_Rad2: 8 DBL
+ SG_ DBL_CT_Rad2_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Rad2_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Rad2_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Rad2_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_CT_Rad2_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBL_CT_Rad2_Deg_C : 40|8@1- (1.0,0.0) [-40.0|120.0] "C" Vector__XXX
+
+BO_ 2377515008 DBL_Tach_L: 8 DBL
+ SG_ DBL_Tach_L_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_Tach_L_Timeout : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_Tach_L_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "us" Vector__XXX
+ SG_ DBL_Tach_L_RPM : 40|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+
+BO_ 2378170368 DBR_Status: 8 DBR
+ SG_ DBR_Status_Timestamp : 0|32@1+ (1.0,0.0) [0.0|4294967295.0] "ms" Vector__XXX
+
+BO_ 2378235904 DBR_WSPD_BR: 8 DBR
+ SG_ DBR_WSPD_BR_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_WSPD_BR_Timeout : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_WSPD_BR_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "us" Vector__XXX
+ SG_ DBR_WSPD_BR_RPM : 40|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+
+BO_ 2378301440 DBR_Shock_BR: 8 DBR
+ SG_ DBR_Shock_BR_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_Shock_BR_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_Shock_BR_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBR_Shock_BR_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBR_Shock_BR_mm : 40|16@1+ (0.1,0.0) [0.0|500.0] "mm" Vector__XXX
+
+BO_ 2378498048 DBR_CT_Motor: 8 DBR
+ SG_ DBL_CT_Motor_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Motor_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Motor_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_CT_Motor_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBR_CT_Motor_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBR_CT_Motor_Deg_C : 40|8@1- (1.0,0.0) [-40.0|120.0] "C" Vector__XXX
+
+BO_ 2378502144 DBR_CT_Inv: 8 DBR
+ SG_ DBL_CT_Inv_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Inv_ADC_Err : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBL_CT_Inv_Out_of_Range : 2|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_CT_Inv_Raw_mV : 8|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBR_CT_Inv_Filt_mV : 24|16@1- (0.001,0.0) [-1000.0|1000.0] "V" Vector__XXX
+ SG_ DBR_CT_Inv_Deg_C : 40|8@1- (1.0,0.0) [-40.0|120.0] "C" Vector__XXX
+
+BO_ 2378563584 DBR_Tach_R: 8 DBR
+ SG_ DBR_Tach_R_Valid : 0|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_Tach_R_Timeout : 1|1@1+ (1.0,0.0) [0.0|1.0] "" Vector__XXX
+ SG_ DBR_Tach_R_Avg_Delta : 8|32@1+ (1.0,0.0) [0.0|4294967295.0] "us" Vector__XXX
+ SG_ DBR_Tach_R_RPM : 40|16@1- (1.0,0.0) [-6000.0|6000.0] "RPM" Vector__XXX
+
+VAL_ 171 INV_Fault_Motor_Overspeed 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Overcurrent 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Overvoltage 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Inverter_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Accel_Input_Shorted 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Accel_Input_Open 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Direction_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Response_Timeout 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_HW_Gate 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_HW_Overcurrent 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Undervoltage 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Cmd_Msg_Lost 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Motor_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Brake_Input_Shorted 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Brake_Input_Open 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Module_A_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Module_B_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Module_C_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_PCB_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Board_1_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Board_2_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Board_3_Overtemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Curr_Sensor_Fault 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Gate_Overvoltage 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_DC_Bus_Overvoltage 0 "FALSE" 1 "TRUE" ;
+VAL_ 171 INV_Fault_Resolver_Not_Cnctd 0 "FALSE" 1 "TRUE" ;
+VAL_ 192 VCU_INV_Direction_Cmd 0 "REVERSE" 1 "FORWARD" ;
+VAL_ 192 VCU_INV_Inverter_Enable 0 "FALSE" 1 "TRUE" ;
+VAL_ 192 VCU_INV_Speed_Enable 0 "FALSE" 1 "TRUE" ;
+VAL_ 192 VCU_INV_Discharge_Enable 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Select 0 "MAX_TORQUE" 1 "MOTOR_DIRECTION" 2 "REGEN_ENABLED" 3 "DEBUG_DEFINES" ;
+VAL_ 2147483855 SET_VCU_Motor_Direction 0 "REVERSE" 1 "FORWARD" ;
+VAL_ 2147483855 SET_VCU_Regen_Enabled 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_ECHO_DAQ 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Ignore_RTD_Switch 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Ignore_RTD_Brakes 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Use_APPS1_Only 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Use_APPS2_Only 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Ignore_APPS_Errs 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Ignore_BSE_Errs 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Ignore_SDC 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Ignore_Brake_Plausibility 0 "FALSE" 1 "TRUE" ;
+VAL_ 2147483855 SET_VCU_Always_Green 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Config_Mux 0 "MAX_TORQUE" 1 "MOTOR_DIRECTION" 2 "REGEN_ENABLED" 3 "DEBUG_DEFINES" ;
+VAL_ 2148532431 VCU_Motor_Direction 0 "REVERSE" 1 "FORWARD" ;
+VAL_ 2148532431 VCU_Regen_Enabled 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_ECHO_DAQ 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Ignore_RTD_Switch 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Ignore_RTD_Brakes 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Use_APPS1_Only 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Use_APPS2_Only 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Ignore_APPS_Errs 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Ignore_BSE_Errs 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Ignore_SDC 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Ignore_Brake_Plausibility 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532431 VCU_Always_Green 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532928 VCU_Pump_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532928 VCU_DRS_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532928 VCU_Fans_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2148532928 VCU_Rad_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_IMD_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_BMS_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_BSPD_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_SDC_Raw 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_SDC_Post_IL 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_SDC_Post_Loop 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_Pump_State 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_DRS_State 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_Fans_State 0 "FALSE" 1 "TRUE" ;
+VAL_ 2149581296 MOBO_Rad_State 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678448 HVC_SDC_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678448 HVC_IMD_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678448 HVC_BMS_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678449 HVC_Err_BattFloating 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678449 HVC_Err_ModuleTimeout 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678449 HVC_Err_RefOverTemp 0 "FALSE" 1 "TRUE" ;
+VAL_ 2151678449 HVC_BMS_State 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_Pump_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_DRS_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_Fans_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2152727232 RPI_Rad_Toggle_Cmd 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366636528 VCU_State 0 "LOADING" 1 "NOT_READY" 2 "PLAYING_RTD_SOUND" 3 "DRIVING" 4 "BAP_FAULT" 5 "HARD_FAULT" ;
+VAL_ 2366636528 VCU_RTD_Active 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366636528 VCU_Red_Car 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366636528 VCU_Buzzer_State 0 "INACTIVE" 1 "PLAYING" 2 "DONE" ;
+VAL_ 2366638942 VCU_BSE_Stale 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366638942 VCU_BSE_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366638942 VCU_BSE_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366638942 VCU_BSE_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_Controls_Passive_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_Controls_Bus_Off 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_DAQ_Passive_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_DAQ_Bus_Off 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_Controls_TX_Fault_Seen 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_Controls_RX_Fault_Seen 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_DAQ_TX_Fault_Seen 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_DAQ_RX_Fault_Seen 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366639273 VCU_Controls_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366639273 VCU_DAQ_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366693037 VCU_Dead_HVC_Msg_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366693037 VCU_Dead_IMD_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366693037 VCU_Dead_BMS_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366693037 VCU_Dead_SDC_OK 0 "FALSE" 1 "TRUE" ;
+VAL_ 2366697968 VCU_FIFO_Mux 0 "TX_CONTROLS_STD" 1 "TX_CONTROLS_EXT" 2 "TX_DAQ_EXT" 3 "RX_INV_STATUS" 4 "RX_INV_HIGH_SPEED" 5 "RX_HVC_SUMMARY" 6 "RX_SET_VCU_CONFIG" ;
+VAL_ 2366697968 TX_CONTROLS_STD_VCU_FIFO_Last_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366697968 TX_CONTROLS_EXT_VCU_FIFO_Last_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366697968 TX_DAQ_EXT_VCU_FIFO_Last_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366697968 RX_INV_STATUS_VCU_FIFO_Last_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366697968 RX_INV_HIGH_SPEED_VCU_FIFO_Last_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366697968 RX_HVC_SUMMARY_VCU_FIFO_Last_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2366697968 RX_SET_VCU_CONFIG_VCU_FIFO_Last_Status 0 "OK" 1 "BUSY" 2 "OLD_DATA" 3 "OVERFLOW" 4 "FIFO_FULL" 5 "INVALID_DATA" 6 "ERROR_PASSIVE" 7 "BUS_OFF" 8 "WRONG_HANDLE" 9 "CHANNEL_NOT_CONFIGURED" 10 "INVALID_PARAMETER" 11 "NULL_POINTER" 12 "INVALID_CHANNEL_ID" 13 "MAX_MO_REACHED" 14 "MAX_HANDLES_REACHED" 15 "UNKNOWN" ;
+VAL_ 2367343841 VCU_APPS2_Stale 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS2_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS2_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS2_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_Stale 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS1_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS_Implausible 0 "FALSE" 1 "TRUE" ;
+VAL_ 2367343841 VCU_APPS_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376138752 DBF_WSPD_FL_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376138752 DBF_WSPD_FL_Timeout 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376142848 DBF_WSPD_FR_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376142848 DBF_WSPD_FR_Timeout 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376204288 DBF_Shock_FL_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376204288 DBF_Shock_FL_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376208384 DBF_Shock_FR_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376208384 DBF_Shock_FR_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376269824 DBF_Steering_Angle_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376269824 DBF_Steering_Angle_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376335360 DBF_Pitot_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2376335360 DBF_Pitot_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377187328 DBL_WSPD_BL_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377187328 DBL_WSPD_BL_Timeout 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377252864 DBL_Shock_BL_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377252864 DBL_Shock_BL_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377449472 DBL_CT_Swirl_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377449472 DBL_CT_Swirl_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377449472 DBL_CT_Swirl_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377453568 DBL_CT_Rad1_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377453568 DBL_CT_Rad1_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377453568 DBL_CT_Rad1_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377457664 DBL_CT_Rad2_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377457664 DBL_CT_Rad2_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377457664 DBL_CT_Rad2_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377515008 DBL_Tach_L_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2377515008 DBL_Tach_L_Timeout 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378235904 DBR_WSPD_BR_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378235904 DBR_WSPD_BR_Timeout 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378301440 DBR_Shock_BR_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378301440 DBR_Shock_BR_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378498048 DBL_CT_Motor_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378498048 DBL_CT_Motor_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378498048 DBL_CT_Motor_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378502144 DBL_CT_Inv_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378502144 DBL_CT_Inv_ADC_Err 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378502144 DBL_CT_Inv_Out_of_Range 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378563584 DBR_Tach_R_Valid 0 "FALSE" 1 "TRUE" ;
+VAL_ 2378563584 DBR_Tach_R_Timeout 0 "FALSE" 1 "TRUE" ;

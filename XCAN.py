@@ -1,7 +1,9 @@
 """
 XCAN.py — Read XCAN.xlsx from SharePoint and generate ControlsBus.dbc / DAQBus.dbc
+             Use --master flag to generate a single combined master.dbc with collision detection
 """
 
+import argparse
 import json
 import os
 import time
@@ -614,7 +616,12 @@ def physical_bits_be(start_byte: int, bit_length: int) -> set:
 # ─────────────────────────────────────────────
 # DBC start bit
 # ─────────────────────────────────────────────
-def dbc_start_bit(start_byte: int, bit_offset: int, is_big_endian: bool) -> int:
+def dbc_start_bit(start_byte: int, bit_offset: int, is_big_endian: bool, bit_length: int = 1) -> int:
+    """Calculate DBC start bit position.
+    
+    For big endian (Motorola in DBC): start bit is the MSB bit index for the
+    signal location, i.e. bit 7 of start_byte when Bit Offset is disallowed.
+    """
     if is_big_endian:
         return start_byte * 8 + 7
     else:
@@ -803,12 +810,15 @@ def build_bus(
                     detail="must be between 0 and 7 for Little-endian signals",
                 )
 
-            start = dbc_start_bit(sr.start_byte, sr.bit_offset, is_be)
+            # For big endian signals, bit_length from spreadsheet is in bytes, convert to bits
+            actual_bit_length = sr.bit_length * 8 if is_be else sr.bit_length
+
+            start = dbc_start_bit(sr.start_byte, sr.bit_offset, is_be, actual_bit_length)
 
             if is_be:
-                phys = physical_bits_be(sr.start_byte, sr.bit_length)
+                phys = physical_bits_be(sr.start_byte, actual_bit_length)
             else:
-                phys = physical_bits_le(sr.start_byte, sr.bit_offset, sr.bit_length)
+                phys = physical_bits_le(sr.start_byte, sr.bit_offset, actual_bit_length)
 
             if max(phys) >= 64:
                 raise SpreadsheetValidationError(
@@ -823,7 +833,7 @@ def build_bus(
             sig = Signal(
                 name=sr.signal_name,
                 dbc_start_bit=start,
-                bit_length=sr.bit_length,
+                bit_length=actual_bit_length,
                 is_big_endian=is_be,
                 is_signed=is_signed,
                 scale=tmpl.scale,
@@ -920,7 +930,7 @@ def generate_dbc(messages: List[Message], nodes: List[str]) -> str:
 # ─────────────────────────────────────────────
 # Main
 # ─────────────────────────────────────────────
-def main():
+def main(master: bool = False):
     login_device_code()
 
     print("Resolving SharePoint site...")
@@ -953,31 +963,73 @@ def main():
     daq_signals = parse_bus_signals(daq_bus_rows)
     print(f"  Controls Bus signals: {len(ctrl_signals)}, DAQ Bus signals: {len(daq_signals)}")
 
-    print("Building Controls Bus DBC...")
-    ctrl_msgs, ctrl_nodes = build_bus(ctrl_signals, ctrl_messages, templates, "ControlsBus")
+    if master:
+        print("\nBuilding Master Bus DBC (combining ControlsBus + DAQBus)...")
+        # Merge message tables: combine both dictionaries, error on ID conflicts
+        merged_messages = dict(ctrl_messages)
+        for msg_name, msg_info in daq_messages.items():
+            if msg_name in merged_messages:
+                # Check if CAN IDs match
+                if merged_messages[msg_name].can_id_raw != msg_info.can_id_raw or \
+                   merged_messages[msg_name].is_extended != msg_info.is_extended:
+                    raise RuntimeError(
+                        f"Message '{msg_name}' has conflicting CAN IDs: "
+                        f"ControlsBus={hex(merged_messages[msg_name].can_id_raw)} "
+                        f"vs DAQBus={hex(msg_info.can_id_raw)}"
+                    )
+            else:
+                merged_messages[msg_name] = msg_info
+        
+        # Merge signal rows from both buses
+        merged_signals = ctrl_signals + daq_signals
+        
+        # Build the combined bus (overlap detection will catch collisions)
+        master_msgs, master_nodes = build_bus(merged_signals, merged_messages, templates, "Master")
+        
+        print("Writing Master DBC file...")
+        master_dbc = generate_dbc(master_msgs, master_nodes)
+        with open("master.dbc", "w", newline="\n") as f:
+            f.write(master_dbc)
+        
+        print(f"\nmaster.dbc: {len(master_msgs)} messages, "
+              f"{sum(len(m.signals) for m in master_msgs)} signals")
+    else:
+        print("Building Controls Bus DBC...")
+        ctrl_msgs, ctrl_nodes = build_bus(ctrl_signals, ctrl_messages, templates, "ControlsBus")
 
-    print("Building DAQ Bus DBC...")
-    daq_msgs, daq_nodes = build_bus(daq_signals, daq_messages, templates, "DAQBus")
+        print("Building DAQ Bus DBC...")
+        daq_msgs, daq_nodes = build_bus(daq_signals, daq_messages, templates, "DAQBus")
 
-    print("Writing DBC files...")
-    ctrl_dbc = generate_dbc(ctrl_msgs, ctrl_nodes)
-    with open("ControlsBus.dbc", "w", newline="\n") as f:
-        f.write(ctrl_dbc)
+        print("Writing DBC files...")
+        ctrl_dbc = generate_dbc(ctrl_msgs, ctrl_nodes)
+        with open("ControlsBus.dbc", "w", newline="\n") as f:
+            f.write(ctrl_dbc)
 
-    daq_dbc = generate_dbc(daq_msgs, daq_nodes)
-    with open("DAQBus.dbc", "w", newline="\n") as f:
-        f.write(daq_dbc)
+        daq_dbc = generate_dbc(daq_msgs, daq_nodes)
+        with open("DAQBus.dbc", "w", newline="\n") as f:
+            f.write(daq_dbc)
 
-    print(f"\nControlsBus.dbc: {len(ctrl_msgs)} messages, "
-          f"{sum(len(m.signals) for m in ctrl_msgs)} signals")
-    print(f"DAQBus.dbc:      {len(daq_msgs)} messages, "
-          f"{sum(len(m.signals) for m in daq_msgs)} signals")
+        print(f"\nControlsBus.dbc: {len(ctrl_msgs)} messages, "
+              f"{sum(len(m.signals) for m in ctrl_msgs)} signals")
+        print(f"DAQBus.dbc:      {len(daq_msgs)} messages, "
+              f"{sum(len(m.signals) for m in daq_msgs)} signals")
+    
     print("Done.")
 
 
 def run_cli() -> None:
+    parser = argparse.ArgumentParser(
+        description="Generate DBC files from XCAN.xlsx on SharePoint"
+    )
+    parser.add_argument(
+        "--master",
+        action="store_true",
+        help="Generate a single master.dbc combining ControlsBus and DAQBus (errors on signal collisions)"
+    )
+    args = parser.parse_args()
+    
     try:
-        main()
+        main(master=args.master)
     except SpreadsheetValidationError as exc:
         print("\nSpreadsheet validation error:")
         print(f"  {exc}")
